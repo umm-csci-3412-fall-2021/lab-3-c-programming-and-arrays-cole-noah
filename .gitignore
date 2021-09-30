@@ -39,6 +39,9 @@
 *.dSYM/
 *.su
 
+# vscode
+/.vscode
+
 #######
 # emacs
 #######
