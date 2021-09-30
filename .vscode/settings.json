@@ -9,5 +9,10 @@
         "mergesort",
         "pthread",
         "valgrind"
-    ]
+    ],
+    "files.associations": {
+        "algorithm": "c",
+        "typeinfo": "c",
+        "unordered_map": "c"
+    }
 }
