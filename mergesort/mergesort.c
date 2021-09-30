@@ -12,10 +12,11 @@ void mergeRanges(int arr[], int startIndex, int midPoint, int endIndex)
 	int n2 = endIndex - midPoint;
 
 	/* create temp arrays */
-	int start[n1], end[n2];
+	int *start = (int*) calloc(n1, sizeof(int));
+	int *end = (int*) calloc(n2, sizeof(int));
 
 	/* Copy data to temp arrays L[] and R[] */
-	char *start = (char*) calloc(n1, sizeof(char));
+	
 	for (i = 0; i < n1; i++)
 		start[i] = arr[startIndex + i];
 	for (j = 0; j < n2; j++)
@@ -52,6 +53,10 @@ void mergeRanges(int arr[], int startIndex, int midPoint, int endIndex)
 		j++;
 		k++;
 	}
+
+	free(start);
+	free(end);
+
 }
 
 /* l is for left index and r is right index of the
