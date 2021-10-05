@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void mergesort(int size, int values[]){
-	int startingIndex = 0;
-	int endingIndex = size -1;
-
-	mergeSortRanges(values, startingIndex, endingIndex);
-}
 
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
@@ -94,6 +88,7 @@ void printArray(int A[], int size)
 }
 
 /* Driver code */
+/*
 int main()
 {
 	int arr[] = { 12, 11, 13, 5, 6, 7 };
@@ -107,4 +102,11 @@ int main()
 	printf("\nSorted array is \n");
 	printArray(arr, arr_size);
 	return 0;
+}
+*/
+void mergesort(int size, int values[]){
+	int startingIndex = 0;
+	int endingIndex = size -1;
+
+	mergeSortRanges(values, startingIndex, endingIndex);
 }
