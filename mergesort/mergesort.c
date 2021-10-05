@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void mergesort(int size, int values[]){
+	int startingIndex = 0;
+	int endingIndex = size -1;
+
+	mergeSortRanges(values, startingIndex, endingIndex);
+}
+
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
 // Second subarray is arr[m+1..r]
@@ -56,7 +63,7 @@ void mergeRanges(int arr[], int startIndex, int midPoint, int endIndex)
 
 /* l is for left index and r is right index of the
 sub-array of arr to be sorted */
-void mergeSort(int givenArray[], int startIndex, int endIndex)
+void mergeSortRanges(int givenArray[], int startIndex, int endIndex)
 {
 	if (startIndex < endIndex) {
 		// Same as (l+r)/2, but avoids overflow for
@@ -64,8 +71,8 @@ void mergeSort(int givenArray[], int startIndex, int endIndex)
 		int midPoint = startIndex + (endIndex - startIndex) / 2;
 
 		// Sort first and second halves
-		mergeSort(givenArray, startIndex, midPoint);
-		mergeSort(givenArray, midPoint + 1, endIndex);
+		mergeSortRanges(givenArray, startIndex, midPoint);
+		mergeSortRanges(givenArray, midPoint + 1, endIndex);
 
 		mergeRanges(givenArray, startIndex, midPoint, endIndex);
 	}
@@ -90,7 +97,7 @@ int main()
 	printf("Given array is \n");
 	printArray(arr, arr_size);
 
-	mergeSort(arr, 0, arr_size - 1);
+	mergeSortRanges(arr, 0, arr_size - 1);
 
 	printf("\nSorted array is \n");
 	printArray(arr, arr_size);
