@@ -3,24 +3,28 @@
 #include "../mergesort/mergesort.c"
 
 int *removeDuplicates(int *arr, int size) {
-    int i, j, k;
-    //For each element in the array...
-    for (i = 0; i < size; i++){
-        //Compare it to every other element in the array...
-        for (j = i + 1; j < size; j++){
-            //And if its the same, delete it and move every element in the array back one
-            //(to the element before it), alse decrease the size, and since the array is shorter
-            //don't increment j
-            if (arr[i] == arr[j]) {
-                for (k = j; k < size - 1; k++){
-                    arr[k] = arr[k+1];
-                }
-                size--;
-                j--;
-            }
+    int index = 0;
+    int j = 1;
+    int len, n;
+    int *unique, *final;
+    unique = (int *) calloc(size, sizeof(int));
+    unique[0] = values[0];
+    for (int i = 1; i < size; i++) {
+        if (values[i] != unique[j - 1]) {
+            unique[j] = values[i];
+            index++;
+            j++;
         }
     }
-    return arr;
+    len = index + 2;
+    n = index + 1;
+    final = (int *) calloc(len, sizeof(int));
+    final[0] = n;
+    for (int i = 1; i < len; i++) {
+        final[i] = unique[i - 1];
+    }
+    free(unique);
+    return final;
 }
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
