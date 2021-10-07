@@ -2,10 +2,32 @@
 #include "../mergesort/mergesort.h"
 #include "../mergesort/mergesort.c"
 
+int *removeDuplicates(int *arr, int size) {
+    int i, j, k;
+    //For each element in the array...
+    for (i = 0; i < size; i++){
+        //Compare it to every other element in the array...
+        for (j = i + 1; j < size; j++){
+            //And if its the same, delete it and move every element in the array back one
+            //(to the element before it), alse decrease the size, and since the array is shorter
+            //don't increment j
+            if (arr[i] == arr[j]) {
+                for (k = j; k < size - 1; k++){
+                    arr[k] = arr[k+1];
+                }
+                size--;
+                j--;
+            }
+        }
+    }
+    return arr;
+}
+
 int* array_merge(int num_arrays, int* sizes, int** values) {
 
     int i, j, y;
     int finalSize = 0;
+    int *uniqueArray;
 
     //Iterate through the sizes[] to find the approximate final array size
     //(will not be exact because this does not account for unique integers)
@@ -15,7 +37,7 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
     }
 
     //Create our result array using the finalSize integer obtained above
-    int *result = (int*) calloc(finalSize, sizeof(int));
+    int *result = (int*) calloc(finalSize + 1, sizeof(int));
 
     //Handle empty lists
     if(num_arrays == 0) {
@@ -32,31 +54,19 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
     for (i  = 0; i < num_arrays; i++){
         int *current = values[i];
         for (j = 0; j < sizes[i]; j++) {
-        result[posInArray] = current[j];
-        posInArray++;
+            result[posInArray] = current[j];
+            posInArray++;
         }
     }
 
+    //Get an array of just the unique values
     uniqueArray = removeDuplicates(result, finalSize);
+    //Free the now unused result array
     free(result);
-    mergesort(uniqueArray);
-    return result;
-}
+    //Sort the array of unique values
+    mergesort(finalSize, uniqueArray);
 
-int *removeDuplicates(int *arr, int size) {
-    int i, j, k;
-    for (i = 0; i < size; i++){
-        for (j = i + 1; j < size; j++){
-            if (arr[i] == arr[j]) {
-                for (k = j; k < size - 1; k++){
-                    arr[k] = arr[k+1];
-                }
-                size--;
-                j--;
-            }
-        }
-    }
-    return arr;
+    return result;
 }
 
 int main() {
