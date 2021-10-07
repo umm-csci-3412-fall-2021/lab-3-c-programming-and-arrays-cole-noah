@@ -59,27 +59,34 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
         }
     }
 
+    mergesort(finalSize, result);
     //Get an array of just the unique values
     uniqueArray = removeDuplicates(result, finalSize);
     //Free the now unused result array
     free(result);
-    //Sort the array of unique values
-    mergesort(finalSize, uniqueArray);
+    
 
     return result;
 }
 
 int main() {
-  int num_arrays = 3;
-  int sizes[] = { 4, 2, 5 };
-  int a0[] = { 3, 2, 0, 5 };
-  int a1[] = { 8, 9 };
-  int a2[] = { 6, 3, 2, 0, 5 };
-  int* values[] = { a0, a1, a2 };
-  int* resultArray;
+    int num_arrays = 3;
+    int sizes[] = { 4, 2, 5 };
+    int a0[] = { 3, 2, 0, 5 };
+    int a1[] = { 8, 9 };
+    int a2[] = { 6, 3, 2, 0, 5 };
+    int* values[] = { a0, a1, a2 };
+    int* resultArray;
 
-  resultArray = array_merge(num_arrays, sizes, values);
-  printArray(resultArray, 11);
+    int removeDuplicatesTest[] = { 1, 1, 2, 2, 3, 3, 4, 4};
+    int removeDuplicatesTest1[] = { 2, 1, 2, 4, 3, 3, 3, 4};
+    int size = 8;
 
-  return 0;
+    //   resultArray = array_merge(num_arrays, sizes, values);
+    //   printArray(resultArray, 11);
+
+    resultArray = removeDuplicates(removeDuplicatesTest, size);
+    printArray(resultArray, 8);
+
+    return 0;
 }
