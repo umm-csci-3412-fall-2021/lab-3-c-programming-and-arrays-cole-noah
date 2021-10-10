@@ -48,6 +48,7 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
         //Since the first value in the returned array is always the size,
         //return an array with `0` in it denoting there is nothing in it
         emptyArrays[0] = 0;
+        free(result);
         return emptyArrays;
     }
 
