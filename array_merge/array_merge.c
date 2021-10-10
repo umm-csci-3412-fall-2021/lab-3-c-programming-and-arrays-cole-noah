@@ -3,24 +3,27 @@
 #include "../mergesort/mergesort.c"
 
 int *removeDuplicates(int *arr, int size) {
-    int i, j, k;
-    //For each element in the array...
-    for (i = 0; i < size; i++){
-        //Compare it to every other element in the array...
-        for (j = i + 1; j < size; j++){
-            //And if its the same, delete it and move every element in the array back one
-            //(to the element before it), alse decrease the size, and since the array is shorter
-            //don't increment j
-            if (arr[i] == arr[j]) {
-                for (k = j; k < size - 1; k++){
-                    arr[k] = arr[k+1];
-                }
-                size--;
-                j--;
-            }
+    int index = 0;
+    int j = 1;
+    int len, n;
+    int *subarray, *result;
+    subarray = (int *) calloc(size, sizeof(int));
+    subarray[0] = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] != subarray[j - 1]) {
+            subarray[j++] = arr[i];
+            index++;
         }
     }
-    return arr;
+    len = index + 2;
+    n = index + 1;
+    result = (int *) calloc(len, sizeof(int));
+    result[0] = n;
+    for (int i = 1; i < len; i++) {
+        result[i] = subarray[i - 1];
+    }
+    free(subarray);
+    return result;
 }
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
@@ -64,29 +67,6 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
     uniqueArray = removeDuplicates(result, finalSize);
     //Free the now unused result array
     free(result);
-    
 
-    return result;
-}
-
-int main() {
-    int num_arrays = 3;
-    int sizes[] = { 4, 2, 5 };
-    int a0[] = { 3, 2, 0, 5 };
-    int a1[] = { 8, 9 };
-    int a2[] = { 6, 3, 2, 0, 5 };
-    int* values[] = { a0, a1, a2 };
-    int* resultArray;
-
-    int removeDuplicatesTest[] = { 1, 1, 2, 2, 3, 3, 4, 4};
-    int removeDuplicatesTest1[] = { 2, 1, 2, 4, 3, 3, 3, 4};
-    int size = 8;
-
-    //   resultArray = array_merge(num_arrays, sizes, values);
-    //   printArray(resultArray, 11);
-
-    resultArray = removeDuplicates(removeDuplicatesTest, size);
-    printArray(resultArray, 8);
-
-    return 0;
+    return uniqueArray;
 }
